@@ -7,9 +7,19 @@ const getWeather = async (place) => {
   return result;
 };
 
+let celsius = true;
+let lastResult = undefined;
+
 const round = (num) => Math.round(num * 10) / 10;
 const toCelsius = (temp) => temp - 273;
 const toFarenheit = (temp) => (temp - 273) * 1.8 + 32;
+const switchUnits = (e) => {
+  celsius = !celsius;
+  e.target.textContent = celsius ? "°C" : "°F";
+  if (lastResult) {
+    redrawWeather(lastResult, celsius);
+  }
+};
 
 const redrawWeather = (obj, celsius) => {
   const cityElem = document.querySelector("#one-day h1");
@@ -28,8 +38,10 @@ const processForm = async (e) => {
   e.preventDefault();
   const place = document.querySelector("form #place").value;
   const result = await getWeather(place);
-  redrawWeather(result, true);
+  lastResult = result;
+  redrawWeather(result, celsius);
 };
 
 document.querySelector("form").addEventListener("submit", processForm);
+document.getElementById("unit-switch").addEventListener("click", switchUnits);
 // getWeather("izhevsk");
