@@ -1,5 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,600;8..144,700&display=swap");
+
 :root {
   font-size: 16px;
+  font-family: "Roboto Flex", sans-serif;
+
+  --bg-color: #ffffff;
+  --accent-1: #2e1115;
+  --accent-2: #4f1b1d;
+  --accent-3: #64495c;
+  --accent-4: #83687b;
+  --accent-5: #adadad;
 }
 
 * {
@@ -8,13 +18,105 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-color);
+}
+
 header {
   position: fixed;
   padding: 1rem;
+  background-color: var(--accent-4);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--bg-color);
+}
+
+header form {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+}
+
+input,
+button {
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  border: 1px solid var(--accent-1);
+  font-family: "Roboto Flex", sans-serif;
+}
+
+button {
+  background-color: var(--accent-2);
+  color: var(--bg-color);
 }
 
 main {
-  height: 100vh;
-  width: 100vw;
-  padding: 4rem 2rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 0;
+}
+
+#selected-day {
+  width: 50%;
+  height: 100%;
+  background-color: var(--accent-5);
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 0 0;
+  gap: 0.3rem;
+}
+
+#selected-day h2 {
+  font-size: 3rem;
+  /* margin: 30vh 0 2rem; */
+  width: 100%;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#selected-day p {
+  margin: 0 0.5rem;
+}
+
+#weather-by-time {
+  min-height: 4.1rem;
+  max-height: 5rem;
+  width: 100%;
+  background-color: var(--accent-4);
+  padding: 0.5rem;
+  overflow-x: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.time-item {
+  padding: 0.3rem;
+  background-color: var(--accent-3);
+  height: 100%;
+  min-width: 5rem;
+  max-width: 5rem;
+  color: var(--bg-color);
+  border-radius: 3px;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.time-item h3 {
+  text-align: center;
+}
+
+.time-item p {
+  font-size: 0.75rem;
+  text-align: center;
 }
