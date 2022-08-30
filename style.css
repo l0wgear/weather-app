@@ -22,10 +22,12 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  position: fixed;
+  /* position: fixed; */
   padding: 1rem;
   background-color: var(--accent-4);
   width: 100%;
@@ -69,7 +71,6 @@ main {
   background-color: var(--accent-5);
   display: flex;
   flex-direction: column;
-  padding: 4rem 0 0;
   gap: 0.3rem;
 }
 
@@ -153,4 +154,46 @@ main {
 .time-item p {
   font-size: 0.75rem;
   text-align: center;
+}
+
+#days-list {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#days-list .day-item {
+  display: flex;
+  height: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+#days-list .day-item h2 {
+  font-size: 1.1rem;
+}
+
+#days-list .temp {
+  align-self: center;
+  justify-self: center;
+  font-size: 1.1rem;
+}
+
+#days-list .weather-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  min-width: calc(8rem + 40px);
+}
+
+#days-list .day-item .weather-container .weather {
+  /* min-width: 8rem; */
+  text-align: end;
+  text-transform: capitalize;
+}
+#days-list .weather-container img {
+  width: 40px;
 }

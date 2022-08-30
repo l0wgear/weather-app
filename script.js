@@ -65,6 +65,7 @@ const switchUnits = (e) => {
   if (lastResult) {
     redrawWeather(lastResult, celsius);
     redrawHourlyList(lastResult.daysList[lastTimeIndex].timeList, celsius);
+    redrawDaily(lastResult.daysList, celsius);
   }
 };
 
@@ -117,11 +118,49 @@ const redrawWeather = (obj, celsius) => {
   humElem.textContent = `${obj.daysList[0].timeList[0].humidity}%`;
 };
 
+const redrawDaily = (weatherList, celsius) => {
+  const convFunc = celsius ? toCelsius : toFarenheit;
+  const container = document.getElementById("days-list");
+  removeChildren(container);
+  for (const entry of weatherList) {
+    const item = document.createElement("div");
+    item.className = "day-item";
+    const date = document.createElement("h2");
+    const options = { month: "2-digit", day: "2-digit" };
+    date.textContent = new Date(entry.date)
+      .toLocaleDateString("de-DE", options)
+      .slice(0, -1);
+    item.appendChild(date);
+    const temp = document.createElement("p");
+    temp.className = "temp";
+    temp.textContent = `${convFunc(entry.minTemp)}...${convFunc(
+      entry.maxTemp
+    )}${celsius ? "°C" : "°F"}`;
+    item.appendChild(temp);
+    const weatherContainer = document.createElement("div");
+    weatherContainer.className = "weather-container";
+    const img = document.createElement("img");
+    img.alt = "weather icon";
+    img.src = `http://openweathermap.org/img/wn/${entry.timeList[0].icon.slice(
+      0,
+      -1
+    )}n@2x.png`;
+    const weather = document.createElement("p");
+    weather.className = "weather";
+    weather.textContent = entry.timeList[0].weather;
+    weatherContainer.appendChild(img);
+    weatherContainer.appendChild(weather);
+    item.appendChild(weatherContainer);
+    container.appendChild(item);
+  }
+};
+
 const fetchUpdate = async (place) => {
   const result = await getWeather(place);
   lastResult = result;
   redrawWeather(result, celsius);
   redrawHourlyList(result.daysList[0].timeList, celsius);
+  redrawDaily(result.daysList, celsius);
 };
 
 const processForm = async (e) => {
@@ -132,10 +171,10 @@ const processForm = async (e) => {
 
 document.querySelector("form").addEventListener("submit", processForm);
 document.getElementById("unit-switch").addEventListener("click", switchUnits);
-document.getElementById("test").addEventListener("click", () => {
-  lastResult
-    ? redrawHourlyList(lastResult.daysList[1].timeList, celsius)
-    : console.log("no list");
-});
+// document.getElementById("test").addEventListener("click", () => {
+//   lastResult
+//     ? redrawHourlyList(lastResult.daysList[1].timeList, celsius)
+//     : console.log("no list");
+// });
 
 fetchUpdate("tokyo");
