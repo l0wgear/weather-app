@@ -106,7 +106,10 @@ const redrawWeather = (obj, celsius) => {
   tempElem.textContent = `${convFunc(obj.daysList[0].timeList[0].temp)}${
     celsius ? "°C" : "°F"
   }`;
-  weatherIcon.src = `http://openweathermap.org/img/wn/${obj.daysList[0].timeList[0].icon}@2x.png`;
+  weatherIcon.src = `http://openweathermap.org/img/wn/${obj.daysList[0].timeList[0].icon.slice(
+    0,
+    -1
+  )}n@2x.png`;
   weatherElem.textContent = obj.daysList[0].timeList[0].weather;
   feelsElem.textContent = `${convFunc(obj.daysList[0].timeList[0].feelsLike)}${
     celsius ? "°C" : "°F"
