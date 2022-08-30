@@ -17,6 +17,8 @@ const processForecast = (forecast) => {
         temp: obj.main.temp,
         feelsLike: obj.main.feels_like,
         humidity: obj.main.humidity,
+        weather: obj.weather[0].description,
+        icon: obj.weather[0].icon,
       });
     } else {
       dates.push(curDate[0]);
@@ -31,6 +33,8 @@ const processForecast = (forecast) => {
             temp: obj.main.temp,
             feelsLike: obj.main.feels_like,
             humidity: obj.main.humidity,
+            weather: obj.weather[0].description,
+            icon: obj.weather[0].icon,
           },
         ],
       });
@@ -44,7 +48,7 @@ const getWeather = async (place) => {
   const request = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${key}`;
   const response = await fetch(request);
   const result = await response.json();
-  // console.log(result);
+  console.log(result);
   console.log(processForecast(result));
   return processForecast(result);
 };
@@ -92,12 +96,18 @@ const redrawWeather = (obj, celsius) => {
   const tempElem = document.querySelector("#selected-day h2");
   const feelsElem = document.querySelector("#selected-day .feels span");
   const humElem = document.querySelector("#selected-day .humidity span");
+  const weatherElem = document.querySelector("#selected-day .weather");
+  const weatherIcon = document.querySelector(
+    "#selected-day .weather-container img"
+  );
 
   const convFunc = celsius ? toCelsius : toFarenheit;
-  cityElem.textContent = obj.name;
+  cityElem.textContent = `Weather in ${obj.city.name}, ${obj.city.country}`;
   tempElem.textContent = `${convFunc(obj.daysList[0].timeList[0].temp)}${
     celsius ? "°C" : "°F"
   }`;
+  weatherIcon.src = `http://openweathermap.org/img/wn/${obj.daysList[0].timeList[0].icon}@2x.png`;
+  weatherElem.textContent = obj.daysList[0].timeList[0].weather;
   feelsElem.textContent = `${convFunc(obj.daysList[0].timeList[0].feelsLike)}${
     celsius ? "°C" : "°F"
   }`;
