@@ -61,7 +61,7 @@ const toCelsius = (temp) => Math.round((temp - 273) * 10) / 10;
 const toFarenheit = (temp) => Math.round((temp - 273) * 1.8 + 32);
 const switchUnits = (e) => {
   celsius = !celsius;
-  e.target.textContent = !celsius ? "Switch to °C" : "Switch to °F";
+  e.target.textContent = !celsius ? "Use °C" : "Use °F";
   if (lastResult) {
     redrawWeather(lastResult, celsius);
     redrawHourlyList(lastResult.daysList[lastTimeIndex].timeList, celsius);

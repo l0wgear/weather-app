@@ -40,14 +40,14 @@ header {
 
 header form {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.3rem;
   align-items: center;
   justify-content: center;
 }
 
 input,
 button {
-  padding: 0.3rem 0.6rem;
+  padding: 0.3rem 0.3rem;
   border-radius: 3px;
   border: 1px solid var(--accent-1);
   font-family: "Roboto Flex", sans-serif;
@@ -76,7 +76,7 @@ main {
 
 #selected-day h1 {
   font-size: 1.3rem;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 #selected-day .container {
@@ -196,4 +196,63 @@ main {
 }
 #days-list .weather-container img {
   width: 40px;
+}
+
+@media (max-width: 500px) or (orientation: portrait) {
+  body {
+    min-height: 100vh;
+    max-height: none;
+  }
+  header {
+    padding: 0.5rem;
+  }
+
+  header input {
+    min-width: 8rem;
+    width: 25vw;
+    height: 100%;
+  }
+
+  header button {
+    max-width: 5rem;
+    height: 100%;
+  }
+
+  main {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #selected-day {
+    width: 100%;
+    height: max-content;
+  }
+  #selected-day h1 {
+    text-align: center;
+  }
+  #selected-day .container {
+    padding: 0 1rem 1rem;
+  }
+  #days-list {
+    width: 100%;
+    overflow: initial;
+  }
+}
+
+@media (orientation: portrait) and (min-height: 1000px) {
+  #selected-day {
+    height: 40vh;
+  }
+}
+
+@media (max-height: 550px) {
+  #days-list .day-item {
+    height: 4rem;
+  }
+}
+
+@media (max-width: 300px) {
+  :root {
+    font-size: 12px;
+  }
 }
